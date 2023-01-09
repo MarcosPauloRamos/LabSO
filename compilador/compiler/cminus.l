@@ -1,7 +1,6 @@
 /****************************************************/
 /* File: cminus.l                                   */
 /* Especificação léxica para o C-                   */
-/* Diego Wendel de Oliveira Ferreira                */
 /****************************************************/
 
 %{
