@@ -1,7 +1,5 @@
 /****************************************************/
 /* Arquivo: binary.h                                */
-/* Gerador de código bináro                         */
-/* Diego Wendel de Oliveira Ferreira		        */
 /****************************************************/
 
 #ifndef _BINARY_H_
