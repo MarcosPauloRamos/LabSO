@@ -1,7 +1,6 @@
 /****************************************************/
 /* Arquivo: cli.c                                   */
 /* Implementação da Command Line Interface          */
-/* Diego Wendel de Oliveira Ferreira                */
 /****************************************************/
 
 #include "globals.h"
