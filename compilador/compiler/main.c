@@ -1,7 +1,5 @@
 /****************************************************/
 /* Arquivo: main.c                                  */
-/* Main para o compilador da máquina iZero          */
-/* Diego Wendel de Oliveira Ferreira                */
 /****************************************************/
 
 #include "globals.h"
