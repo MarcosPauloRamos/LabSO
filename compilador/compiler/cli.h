@@ -1,7 +1,6 @@
 /****************************************************/
 /* Arquivo: cli.c                                   */
 /* Command Line Interface                           */
-/* Diego Wendel de Oliveira Ferreira                */
 /****************************************************/
 
 #ifndef _CLI_H_
