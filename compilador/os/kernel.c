@@ -1,12 +1,3 @@
-/**
- * Sistema Operacional para a máquina alvo iZero.
- * 
- * O sistema conta com gerenciamento de processos, gerenciamento de memória, gerenciamento
- * de arquivos e gerenciamento de entrada e saída.
- * 
- * Desenvolvedor: Diego Ferreira.
- */
-
 /*******************************************************************************************************/
 /******************************************   PROCESSOS   **********************************************/
 /*******************************************************************************************************/
@@ -20,12 +11,6 @@ int LISTA_VAZIA;
 
 /**
  * TABELA DE PROCESSOS
- * 
- * Idealmente essa estrutura seria um array de structs bem definidas. Por limitações
- * da máquina alvo, só é possível trabalhar com vetores e nenhuma estrutura. Logo,
- * Serão implementados diversos arrays, cada um representando um atributo da estrutura
- * e além disso um inteiro para se atribuir o índice atual que o Kernel está acessando
- * em todos vetores.
  */
 int PROC_ESTADO[10];
 int PROC_PC[10];
@@ -113,8 +98,6 @@ int ESTADO_LCD;										// Estado LCD - Menu que será mostrado no Display LCD
 
 /**
  * Calcula o tamanho do programa do kernel em disco.
- *
- * @return tamanho do kernel
  */ 
 int getTamanhoKernel(void) {
 	int instrucao;
@@ -129,14 +112,6 @@ int getTamanhoKernel(void) {
 	return index;
 }
 
-/**
- * Realiza a exponenciação de 2, onde o expoente é passado como
- * parâmetro.
- * 
- * @param n
- * 		expoente da operação de exponenciação de 2
- * @return potência de dois do número passado como parâmetro
- */
 int powByTwo(int n) {
 	int total;
 	
@@ -222,10 +197,6 @@ int getIdProgramaByName(int programa) {
 
 /**
  * Mata um processo, ou seja, remove todos seus recursos e apontadores.
- * TODO:: REMOVER AREA DE MEMORIA DE DADOS
- * 
- * @param processo
- * 		processo a ser removido da memória de instruções e de dados
  */
 void killProcess(int processo) {
 	int i;
@@ -257,9 +228,6 @@ void killProcess(int processo) {
 
 /**
  * Remove um programa do disco rígido. Não será mais possível carregá-lo em memória.
- * 
- * @param programa
- * 		programa a ser removido do disco
  */
 void purgarPrograma(int programa) {
 	int index;
@@ -288,9 +256,6 @@ void purgarPrograma(int programa) {
 
 /**
  * Renomeia um programa armazenado no disco rígido.
- * 
- * @param programa
- *      programa a ser renomeado
  */
 void renomearPrograma(int programa) {
     int novoNome;
@@ -359,17 +324,11 @@ int getDescritorProgramasBloqueados(void) {
 /*****************************   INICIALIZAÇÃO DO SISTEMA OPERACIONAL   ********************************/
 /*******************************************************************************************************/
 
-/**
- * Inicializa todos códigos das possíveis interrupções do sistema.
- */ 
 void initInterrupcoes(void) {
 	INTERRUPT_CONTEXTO = 2;
 	INTERRUPT_INPUT = 1;
 }
 
-/**
- * Inicializa constantes relacionadas ao gerenciamento de processos.
- */
 void initProcessos(void) {
 	int i;
 
@@ -378,7 +337,6 @@ void initProcessos(void) {
 	BLOQUEADO = 3;
 	LISTA_VAZIA = 404;
 
-	// Primeiro zera os vetores de programas
 	i = 0;
 	while (i < 10) {
 		PROC_ESTADO[i] = 0;
@@ -397,9 +355,7 @@ void initProcessos(void) {
 	IS_EXECUCAO_PREEMPTIVA = 0;
 }
 
-/**
- * Inicializa constantes relacionadas ao gerenciamento de memória.
- */
+
 void initMemoria(void) {
 	TAMANHO_PARTICAO = 32;			// Se alterar aqui, lembrar de alterar target.c (endereço para salvar contexto)
 	QUANTIDADE_PARTICOES = 128;		// Se alterar aqui, lembrar de alterar target.c (endereço para salvar contexto)
@@ -408,9 +364,6 @@ void initMemoria(void) {
 	PROTAGONISTA = 999;
 }
 
-/**
- * Inicializa constantes relacionadas ao gerenciamento do SHELL-LCD.
- */
 void initDisplay(void) {
 	// Estados dos menus
 	KERNEL_MAIN_MENU = 0;
@@ -436,9 +389,6 @@ void initDisplay(void) {
 	ESTADO_LCD = KERNEL_MAIN_MENU;
 }
 
-/**
- * Inicializa o constantes diversas do sistema.
- */
 void initConstantes(void) {
 	// ÚLTIMO ENDEREÇO DO HD
 	ENDERECO_FIM_HD = 4095;
@@ -449,21 +399,11 @@ void initConstantes(void) {
 	HALT = 63;
 }
 
-/**
- * Inicializa, primeiramente, todas as partições da memória de
- * instruções como disponíveis. Em seguida, calcula as partições
- * necessárias para armazenar o kernel e as marca como ocupadas.
- * 
- * Também marca as partições da memória de dados utilizadas pelo Kernel
- * e marca a última partição da memória de dados como usada, isso porque
- * é nela que é salvo/lido o contexto de um programa.
- */
 void initParticoes(void) {
 	int i;
 	int particoes;
 	int tamanhoKernel;
 
-	// Primeiro zera todas partições das memórias de DADOS e INSTRUÇÕES
 	i = 0;
 	while (i < QUANTIDADE_PARTICOES) {
 		PARTICOES_MEM_INST[i] = 0;
@@ -505,12 +445,6 @@ void initParticoes(void) {
 	PARTICOES_MEM_DATA[QUANTIDADE_PARTICOES - 1] = 1;
 }
 
-/**
- * Inicializa, primeiramente, todos slots de programas como
- * disponíveis. Em seguida, realiza uma varredura completa pelo
- * disco em busca de programas ainda não marcados e os mapeia
- * com seu número e seu endereço de início no HD.
- */
 void initProgramas(void) {
 	int index;
 	int prog;
@@ -542,9 +476,6 @@ void initProgramas(void) {
 	}
 }
 
-/**
- * Inicializa o sistema operacional.
- */
 void initKernel(void) {
 	// A ordem de inicialização é fundamental! Não alterar!
 	initProcessos();
@@ -561,13 +492,7 @@ void initKernel(void) {
 /*******************************************************************************************************/
 
 /**
- * Com base no tamanho passado como parâmetro, busca partições livres
- * e contíguas na memória. Retorna o número da primeira partição, mesmo
- * que o programa necessite de mais de uma para ser alocado em memória.
- * 
- * @param
- * 		tamanho do programa
- * @return primeira partição livre na memória de intruções
+ * eturn primeira partição livre na memória de intruções
  */
 int getParticaoLivreMemInstrucoes(int tamanho) {
 	int i;
@@ -714,11 +639,7 @@ void carregarTodosFilaPronto(void) {
 }
 
 /**
- * Calcula o tamanho de um programa em disco.
- * 
- * @param beginOnDisk
- * 		endereço do início do programa no HD
- * @return tamanho do programa
+ * Ctamanho do programa no HD
  */ 
 int getTamanhoPrograma(int beginOnDisk) {
 	int instrucao;
@@ -735,11 +656,6 @@ int getTamanhoPrograma(int beginOnDisk) {
 
 /**
  * Carrega um programa do HD para a memória de instruções.
- * 
- * @param beginOnDisk
- * 		endereço do início do programa no HD
- * @param nPrograma
- * 		seletor para o qual o programa será atribuído na MMU
  */
 void carregarPrograma(int nPrograma) {
 	int indexDisk;										// Iterador para o disco
@@ -781,9 +697,6 @@ void carregarPrograma(int nPrograma) {
 	PROC_ATUAL = 0;
 }
 
-/**
- * Só suporta até 32 instruções no max
- */
 void criarPrograma(void) {
     int prog;
     int indexDisk;
@@ -913,9 +826,6 @@ void runNaoPreemptivo(int programa) {
 	run(programa);
 }
 
-/**
- * Executa todos processos com estado PRONTO da fila de processos, um em seguida do outro.
- */
 void runPreemptivo(void) {
 	int processo;
 	// Coloca todos processos em memória na fila de execução
@@ -1147,35 +1057,3 @@ void main(void) {
 		lcd(ESTADO_LCD);
 	}
 }
-
-/**
- * exec(program)
- *
- * Executa o programa @program alocado na memória
- * obs: só funciona com variáveis, pois é um JUMPR
- * 
- * Precisa salvar pc + 1 no registrador $ra
- * Atribuir o seletor da MMU com o valor @program
- * Passar para o modo usuário
- * Saltar para zero para iniciar a execução do programa selecionado em modo usuário
- */
-
-/**
- * mmuLowerIM(offset)
- * 
- * A unidade de gerenciamento de memória (MMU) armazena um estado, que é o programa selecionado.
- * Quando a função mmuLowerIM(offset) é chamada ela atribui o offset ao programa selecionado no
- * mesmo instante.
- * 
- * Ex: Para atribuir um offset novo ao programa 7 recém-carregado para a memória de instruções,
- * devemos fazer os seguintes chamados de instruções:
- * 
- * -	mmuSelect(7);
- * -	mmuLowerIM(256); // 256, número arbitrário (início do programa na IM)
- */
-
-/**
- * lcd(menu)
- * 
- * Seleciona o menu que será exibido no display LCD.
- */
