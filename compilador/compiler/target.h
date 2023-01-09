@@ -1,7 +1,6 @@
 /****************************************************/
-/* Arquivo: target.h                                */
-/* Gerador de código objeto                         */
-/* Diego Wendel de Oliveira Ferreira		        */
+/* Arquivo: target.c                                */
+/* codigo objeto                                    */
 /****************************************************/
 
 #ifndef _TARGET_H_
