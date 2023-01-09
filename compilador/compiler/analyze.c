@@ -1,8 +1,6 @@
 /****************************************************/
 /* File: analyze.c                                  */
 /* Implementacao do analisador semantico            */
-/* Diego Wendel de Oliveira Ferreira		        */
-/* 86774                               		        */
 /****************************************************/
 
 #include "globals.h"
