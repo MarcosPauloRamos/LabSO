@@ -3,8 +3,6 @@
 /* Yacc/Bison Version                               */
 /* Global types and vars for TINY compiler          */
 /* must come before other include files             */
-/* Diego Wendel de Oliveira Ferreira		    */
-/* 86774                         		    */
 /****************************************************/
 
 #ifndef _GLOBALS_H_
