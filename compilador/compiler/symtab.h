@@ -1,8 +1,6 @@
 /****************************************************/
 /* File: symtab.h                                   */
 /* Interface para a tabela de simbolos C minus      */
-/* Diego Wendel de Oliveira Ferreira		    */
-/* 86774                               		    */
 /****************************************************/
 
 #ifndef _SYMTAB_H_
