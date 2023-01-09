@@ -1,7 +1,5 @@
 /****************************************************/
 /* Arquivo: binary.c                                */
-/* Implementação do Gerador de código binário       */
-/* Diego Wendel de Oliveira Ferreira		        */
 /****************************************************/
 
 #include "binary.h"
@@ -27,10 +25,7 @@ const char * getZeros(int n) {
     return zeros;
 }
 
-/* Função que converte um número decimal para uma string binária em complemento
- * de 2. Essa função não trata casos de overflow!!! Fica a cargo do programador
- * alocar a quantidade de bits suficiente para a conversão
- */
+/* Conversão de decimal para complemento de 2 binario. não trata casos de overflow*/
 const char * decimalToBinaryStr(unsigned x, int qtdBits) {
     int i = 0;
     qtdBits--;
