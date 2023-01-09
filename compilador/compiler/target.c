@@ -1,7 +1,6 @@
 /****************************************************/
 /* Arquivo: target.c                                */
-/* Implementação do Gerador de código objeto        */
-/* Diego Wendel de Oliveira Ferreira                */
+/* codigo objeto                                    */
 /****************************************************/
 
 #include "target.h"
